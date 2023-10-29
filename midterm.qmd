@@ -8,6 +8,12 @@ format: html
 self-contained: true
 ---
 
+```{r}
+#| echo: false
+require(magrittr, quietly=T)
+require(ggplot2, quietly=T)
+```
+
 # Instructions
 
 ::: callout-important
@@ -35,9 +41,9 @@ The exam will consist of two parts:
 
 Log in to *your* github account and then go to the [GitHub organization](https://github.com/bsmm-8740-fall-2023) for the course and find the **BSMM-midterm-\[your github username\]** repository to complete the exam.
 
-Create an R project using your `midterm` repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `midterm.qmd` file in your repository. Your first edits should be to the date and your name (as author) at the top of this document.
+Create an R project using your `midterm` repository (remember to create a PAT, etc., as in lab-1) and add your answers by editing the `midterm.qmd` file in your repository. Your first edits should be to the **date** and **your name** (as author) at the top of this document.
 
-Be sure that you have saved, staged, committed, and pushed your work before the end of the exam.
+Be sure that you have [saved]{.underline}, [staged]{.underline}, [committed]{.underline}, and [pushed]{.underline} your work before the end of the exam.
 
 🍀 Good luck! 🍀
 
@@ -73,86 +79,177 @@ By taking this exam, you pledge to that:
 
 ## Q-1
 
-Is this data a `tidy` dataset?
+In the recipes:: package, which function is used to *compute* the steps of the recipe?
 
-| Region    | \< \$1M | \$1 - \$5M | \$5 - \$10M | \$10 - \$100M | \> \$100M |
-|-----------|---------|------------|-------------|---------------|-----------|
-| N America | \$50M   | \$324M     | \$1045M     | \$941M        | \$1200M   |
-| EMEA      | \$10M   | \$121M     | \$77M       | \$80M         | \$0M      |
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER :
 
-*Delete the wrong answer:*
+*Delete the wrong answer(s):*
 
--   Yes
--   No
+-   recipe
+-   prep
+-   bake
+:::
 
 ## Q-2
 
-Which `dlpyr::` function possibly reduces the number of rows in a dataset? *Delete the wrong answers below*.
+In lasso regression, the regression coefficients minimize:
 
--   **dplyr::select()**
--   **dplyr::arrange()**
--   **dplyr::filter**
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
+
+*Delete the wrong answer(s) below*.
+
+1.  sum of squared coefficients
+2.  the sum of squared residuals (errors)
+3.  sum of coefficient absolute values
+4.  1&2
+5.  2&3
+6.  1,2,&3
+:::
 
 ## Q-3
 
-If I join the *two* tables below as follows:
+Recall that the first step of a decision-tree regression model will divide the space of predictors into 2 parts and estimate constant prediction values for each part. For one predictor, the result of the first step is
 
-``` r
-dplyr::????_join(employees, departments, by = "department_id")
+$$
+\hat{y} = \hat{f}(x)=\sum_{i=1}^{2}c_i\times I_{(x\in R_i)}
+$$such that
+
+$$
+\text{SSE}=\left\{ \sum_{i\in R_{1}}\left(y_{i}-c_{i}\right)^{2}+\sum_{i\in R_{2}}\left(y_{i}-c_{i}\right)^{2}\right\} 
+$$
+
+is minimized.
+
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
+
+On the first split of a decision tree model for the following data:
+
+```{r}
+#| fig-align: center
+set.seed(8740)
+tibble::tibble(
+  x = seq(0,1,0.025) + rnorm(1+1/0.025,0,0.005)
+  , y = x + rnorm(length(x),0,0.05)
+) %>% 
+  ggplot( aes(x=x,y=y) ) + geom_point()
+
 ```
 
-which type of join would include a row with **employee_name == Moe Syzslak**?
+The first two regions that partition x will be (Delete the wrong answer(s) below):
 
--   inner
--   left
--   right
--   all of the above
-
-*Delete the incorrect answers*.
-
-**employees** - This table contains each employee's ID, name, and department ID.
-
-| id  | employee_name | department_id |
-|-----|---------------|---------------|
-| 1   | Homer Simpson | 4             |
-| 2   | Ned Flanders  | 1             |
-| 3   | Barney Gumble | 5             |
-| 4   | Clancy Wiggum | 3             |
-| 5   | Moe Syzslak   | NA            |
-
-**departments** - This table contains each department's ID and name.
-
-| department_id | department_name          |
-|---------------|--------------------------|
-| 1             | Sales                    |
-| 2             | Engineering              |
-| 3             | Human Resources          |
-| 4             | Customer Service         |
-| 5             | Research And Development |
+-   \[0,1/3\] and (1/3, 3/3\]
+-   \[0,2/3\] and (2/3, 3/3\]
+-   \[0,1/2\] and (1/2, 2/2\]
+:::
 
 ## Q-4
 
-Give two questions you might ask of the data during exploratory data analysis.
+Given the last question, the first two estimated constants will be:
 
-1.  \_\_\_
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
 
-2.  \_\_\_
+Delete the wrong answer(s) below:
+
+-   0,1
+-   1/2,1
+-   1/4, 3/4
+:::
 
 ## Q-5
 
-If you thought your data had seasonality, what type of feature might you add to your predictive variables?
+In performing EDA on client data, which of the following are **unlikely** to be an encoding for a missing numerical value:
 
-1.  lag variables
-2.  basis functions
-3.  date-part variables
-4.  all of the above (1,2,3)
-5.  none of the above (1,2,3)
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
 
-*Delete the incorrect answers*.
+Keep the answer(s) you think might be appropriate
+
+-   NA
+-   Nan (not a number)
+-   0
+-   -1
+-   I'll need to confirm with the client
+:::
+
+## Q6
+
+Your client has provided data where the day of the week was encoded as the numbers 0-6, for a business problem to be modeled as a regression. Please comment on their choice of encoding.
+
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
+
+Write your comments here:
+:::
+
+## Q7
+
+In an ordinary linear regression relating y to x for the data of question 3, the regression coefficient can be estimated as:
+
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
+
+Delete the wrong answer(s) below
+
+-   $\frac{\text{var(y)}}{\text{var(x)}}$
+-   $\frac{\text{var(y)}}{\text{covar(y,x)}}$
+-   $\frac{\text{covar(x,y)}}{\text{var(x)}}$
+:::
+
+## Q8
+
+A term used to describe the case when the predictors in a multiple regression model are highly correlated is called:
+
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
+
+Delete the wrong answer(s) below
+
+-   Heteroscedasticity
+-   Homoscedasticity
+-   Polynomial
+-   Multicollinearity
+:::
 
 # Quiz-1 (part 2)
 
-## Q6
+## Q9
+
+For the data below, it is expected that the response variable y can be described by the independent variables x1 and x2. This implies that the parameters of the following model should be estimated and tested
+
+$$
+y = \beta_0 + \beta_1x1 + \beta_2x2 + \epsilon, \epsilon ∼ \mathcal{N}(0, \sigma^2)
+$$
+
+```{r}
+dat <- tibble::tibble(
+  x1=c(0.58, 0.86, 0.29, 0.20, 0.56, 0.28, 0.08, 0.41, 0.22, 0.35, 0.59, 0.22, 0.26, 0.12, 0.65, 0.70, 0.30
+        , 0.70, 0.39, 0.72, 0.45, 0.81, 0.04, 0.20, 0.95)
+  , x2=c(0.71, 0.13, 0.79, 0.20, 0.56, 0.92, 0.01, 0.60, 0.70, 0.73, 0.13, 0.96, 0.27, 0.21, 0.88, 0.30
+        , 0.15, 0.09, 0.17, 0.25, 0.30, 0.32, 0.82, 0.98, 0.00)
+  , y=c(1.45, 1.93, 0.81, 0.61, 1.55, 0.95, 0.45, 1.14, 0.74, 0.98, 1.41, 0.81, 0.89, 0.68, 1.39, 1.53
+        , 0.91, 1.49, 1.38, 1.73, 1.11, 1.68, 0.66, 0.69, 1.98)
+)
+```
+
+Calculate the parameter estimates ( $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\beta}_2$); in addition find the usual 95% confidence intervals for $\beta_0$, $\beta_1$, $\beta_2$.
+
+::: {.callout-note appearance="simple" icon="false"}
+## YOUR ANSWER:
+
+```{r}
+# your code goes here
+```
+
+Hint: use `broom::tidy(conf.int = TRUE)` with a regression model
+:::
+
+Bonus: using the `.resid` column created by `broom::augment(___, dat)` , calculate $\hat{\sigma}^2$.
+
+## Q10
 
 Execute the following code to read sales data from a csv file and answer the questions about the code below.
 
@@ -176,13 +273,15 @@ sales_dat <-
 ```
 
 ::: {.callout-note appearance="simple" icon="false"}
-## SOLUTION :
+## YOUR ANSWER :
 
--   the result of the **`clean_names`** step is:
--   the result of the **`mutate`** step is:
+Without executing the code:
+
+-   describe the result of the **`clean_names`** step.
+-   describe the result of the **`mutate`** step.
 :::
 
-## Q7
+## Q11
 
 Using the sales data that was loaded in the last question, describe what the `group_by` step does in the code below, and complete the code to produce a sales summary by year. Execute your code to confirm that it is doing what you expect.
 
@@ -195,7 +294,7 @@ Using the sales data that was loaded in the last question, describe what the `gr
 ```
 
 ::: {.callout-note appearance="simple" icon="false"}
-## SOLUTION :
+## YOUR ANSWER :
 
 -   the result of the **`group_by`** step is:
 
@@ -207,7 +306,7 @@ Using the sales data that was loaded in the last question, describe what the `gr
 ```
 :::
 
-## Q8
+## Q12
 
 Execute the following code to read salary data from a csv file and perform the following analyses.
 
@@ -224,14 +323,14 @@ salary_dat <-
 ```
 
 ::: {.callout-note appearance="simple" icon="false"}
-## SOLUTION:
+## YOUR ANSWER:
 
 ```{r}
 
 ```
 :::
 
-## Q9
+## Q13
 
 Execute the following code to read student performance data from a csv file and code the following analyses where the outcome/target variable is **performance_index**, and all other columns are predictors.
 
@@ -252,7 +351,7 @@ performance_dat <-
 ```
 
 ::: {.callout-note appearance="simple" icon="false"}
-## SOLUTION:
+## YOUR ANSWER:
 
 ```{r}
 #| eval: false
@@ -274,9 +373,9 @@ result %>%
 ```
 :::
 
-## Q10
+## Q14
 
-Execute the following code to read employee absence data from a xls file and create a recipe to preprocess the data. Do the following:
+Execute the following code to read employee absence data from a *.xls* file and create a recipe to preprocess the data. Do the following:
 
 -   familiarize yourself with the data using `skimr::skim()` ,
 -   describe what each step of the recipe is doing,
@@ -325,7 +424,7 @@ untuned_xgb <-
 ```
 
 ::: {.callout-note appearance="simple" icon="false"}
-## SOLUTION:
+## YOUR ANSWER:
 
 ```{r}
 # your code goes here
