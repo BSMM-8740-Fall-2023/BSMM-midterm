@@ -283,7 +283,7 @@ Without executing the code:
 
 ## Q11
 
-Using the sales data that was loaded in the last question, describe what the `group_by` step does in the code below, and complete the code to produce a sales summary by year. Execute your code to confirm that it is doing what you expect.
+Using the sales data that was loaded in the last question, describe what the group_by step does in the code below, and complete the code to produce a sales summary by year, i.e. productline and years are the columns (one column for each year), while each year column contains the sales for each productline that year. Execute your code to confirm that it is doing what you expect.
 
 ```{r}
 #| eval: false
@@ -359,7 +359,8 @@ splits <- rsample::initial_split(performance_dat)
 training <- ?
 testing <- ?
 
- rec <- recipes::recipe(performance_index ~ .) %>% 
+rec <- training %>%
+  recipes::recipe(performance_index ~ .) %>% 
   recipes::step_ ?  %>% 
   recipes::setp_ ?
   
